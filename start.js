@@ -1,7 +1,9 @@
 import nodemon from 'nodemon';
+import log4js from 'log4js';
 var Webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var webpackConfigServer = require('./webpack.config.js');
+const logger = log4js.getLogger();
 
 /*var runner = function() {
   console.log(1);
@@ -36,39 +38,37 @@ compiler.watch({
 const builder = {
   async run() {
     try {
-      //await Promise.all(this.webpackBuildClient(), this.webpackBuildServer());
       await this.webpackBuildServer();
       this.nodemon();
-      console.log('Done !');
+      logger.info('Done !');
     } catch(error) {
-      console.log('Error : ' + error);
-      process.exit(1);
-      throw error;
+      logger.error('Error while compiling !');
     }
   },
 
   webpackBuildServer() {
-    console.log('Building server bundle ...');
     const compiler = Webpack(webpackConfigServer);
-    console.log(3);
     let firstBuild = true;
     return new Promise((resolve, reject) => {
-      console.log(4);
       compiler.watch({
         aggregateTimeout: 300,
         poll: 1000
       }, function(err, stats) {
-          console.log('Watcher for server bundle ...');
-          if (err) reject(err);
-          console.log('Success !');
-          // restart nodemon
-          if (firstBuild) {
-            console.log('First build');
-            firstBuild = false;
-            return resolve();
-          }
-          console.log('nodemon');
-          nodemon.restart();
+        logger.info('Building server Bundle ...');
+        console.log(stats.toString({
+          chunks: false,
+          colors: true
+        }));
+        const info = stats.toJson();
+        if (err || stats.hasErrors() || stats.hasWarnings()) {
+          return reject(err);
+        }
+        logger.info('Build success !');
+        if (firstBuild) {
+          firstBuild = false;
+          return resolve();
+        }
+        nodemon.restart();
       });
     });
   },
@@ -79,7 +79,6 @@ const builder = {
       script: require('path').resolve(__dirname, './', 'dist/server.js'),
       watch: false
     }).on('restart', (files) => {
-      console.log('node restart');
       const leafname = files && files.length ? files[0].split('\\').pop().split('/').pop() : '<manual restart>';
       console.log('Node server restarted, file changed:', leafname);
       console.log('nodemon restarted');
