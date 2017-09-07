@@ -1,1 +1,6 @@
-console.log('hello hyhyh zebi la nouche');
+import express from 'express';
+const app = express();
+
+app.get('/', (req, res) => res.send('Hello mon srab!'));
+
+app.listen(3000, () => console.log('Example app listening on port 3000!'));
