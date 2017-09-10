@@ -8,7 +8,8 @@ export default {
 		host: 'localhost',
 		port: '3306',
 		username: 'hapta',
-		passowrd: 'PWD_SECURE'
+		password: 'PWD_SECURE',
+		database: 'hapta_v2'
 	},
 	logger: {
 		level: 'error'

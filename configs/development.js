@@ -7,8 +7,9 @@ export default {
 	bdd: {
 		host: 'localhost',
 		port: '3306',
-		username: 'hapta',
-		passowrd: 'PASSWORD_DEV'
+		username: 'root',
+		password: 'root',
+		database: 'hapta_v2'
 	},
 	logger: {
 		level: 'debug'

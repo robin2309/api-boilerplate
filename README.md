@@ -1,4 +1,4 @@
-# api-boilerplate
+# api-hapta
 
-npm i
+npm install
 npm start
