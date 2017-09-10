@@ -9,7 +9,7 @@ export default {
 		port: '3306',
 		username: 'root',
 		password: 'root',
-		database: 'hapta_v2'
+		database: ''
 	},
 	logger: {
 		level: 'debug'

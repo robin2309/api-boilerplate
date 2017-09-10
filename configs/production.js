@@ -9,7 +9,7 @@ export default {
 		port: '3306',
 		username: 'hapta',
 		password: 'PWD_SECURE',
-		database: 'hapta_v2'
+		database: ''
 	},
 	logger: {
 		level: 'error'
