@@ -1,19 +1,16 @@
-const __CONFIG__ = {
-	api: {
-		port: 3000,
-		prefix: '/api',
-		version: 'v1'
-	},
-	bdd: {
-		host: 'localhost',
-		port: '3306',
-		username: 'hapta',
-		passowrd: 'Hapta_Dev'
-	},
-	logger: {
-		level: 'debug'
-	}
+import {defaultsDeep} from 'lodash'
+import production from './production';
+import staging from './staging';
+import development from './development';
+
+const configs = {
+	production,
+	development,
+	staging
 };
 
-global.__DEVELOPMENT__ = process.env.NODE_ENV === 'development';
-global.__CONFIG__ = __CONFIG__;
+export const getConfigs = () => {
+	return process.env.NODE_ENV 
+		? defaultsDeep(configs[process.env.NODE_ENV], production)
+		: production;
+}

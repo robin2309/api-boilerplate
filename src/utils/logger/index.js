@@ -1,7 +1,7 @@
 import moment from 'moment';
 import winston from 'winston';
 
-const logger = new (winston.Logger)({
+export const getLogger = (level) => new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({
       timestamp: function() {
@@ -12,9 +12,7 @@ const logger = new (winston.Logger)({
         return `[${options.timestamp()}]` +' '+ options.level.toUpperCase() +' '+ (options.message ? options.message : '') +
           (options.meta && Object.keys(options.meta).length ? '\n\t'+ JSON.stringify(options.meta) : '' );
       },
-      level: 'debug'
+      level
     })
   ]
 });
-
-global.__LOGGER__ = logger;
