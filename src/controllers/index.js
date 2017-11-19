@@ -9,12 +9,12 @@ export default app => {
   	tests(app, router);
   	app.use(router.routes());
 
-  	const routerBadRequest = new KoaRouter({prefix: router.opts.prefix});
+  	/*const routerBadRequest = new KoaRouter({prefix: router.opts.prefix});
   	routerBadRequest
     	.get('/*'   , ctx => ctx.body = 'Bad request')
     	.post('/*'  , ctx => ctx.body = 'Bad request')
     	.put('/*'   , ctx => ctx.body = 'Bad request')
     	.delete('/*', ctx => ctx.body = 'Bad request')
-  	;
-  	app.use(routerBadRequest.routes());
+  	;*/
+  	//app.use(routerBadRequest.routes());
 }
